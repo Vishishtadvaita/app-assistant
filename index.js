@@ -27,14 +27,30 @@ restService.post("/attendance", function(req, res) {
         "Seems like some problem. Speak again.";
 
     return res.json({
-        "conversationToken": "[]",
+        "conversationToken": "{\"state\":null,\"data\":{}}",
         "expectUserResponse": true,
         "expectedInputs": [{
             "inputPrompt": {
-                "initialPrompts": [{
-                    "textToSpeech": "Alright! Here are a few things you can learn. Which sounds interesting?"
-                }],
-                "noInputPrompts": []
+                "richInitialPrompt": {
+                    "items": [{
+                        "simpleResponse": {
+                            "textToSpeech": "This is a simple response for a carousel"
+                        }
+                    }],
+                    "suggestions": [{
+                            "title": "Basic Card"
+                        },
+                        {
+                            "title": "List"
+                        },
+                        {
+                            "title": "Carousel"
+                        },
+                        {
+                            "title": "Suggestions"
+                        }
+                    ]
+                }
             },
             "possibleIntents": [{
                 "intent": "actions.intent.OPTION",
@@ -43,51 +59,63 @@ restService.post("/attendance", function(req, res) {
                     "carouselSelect": {
                         "items": [{
                                 "optionInfo": {
-                                    "key": "MATH_AND_PRIME",
+                                    "key": "title",
                                     "synonyms": [
-                                        "math",
-                                        "math and prime",
-                                        "prime numbers",
-                                        "prime"
+                                        "synonym of title 1",
+                                        "synonym of title 2",
+                                        "synonym of title 3"
                                     ]
                                 },
-                                "title": "Math & prime numbers",
-                                "description": "42 is an abundant number because the sum of its proper divisors 54 is greater…",
+                                "title": "Title of First List Item",
+                                "description": "This is a description of a carousel item",
                                 "image": {
-                                    "url": "http://example.com/math_and_prime.jpg",
-                                    "accessibilityText": "Math & prime numbers"
+                                    "url": "/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
+                                    "accessibilityText": "Image alternate text"
                                 }
                             },
                             {
                                 "optionInfo": {
-                                    "key": "EGYPT",
+                                    "key": "googleHome",
                                     "synonyms": [
-                                        "religion",
-                                        "egpyt",
-                                        "ancient egyptian"
+                                        "Google Home Assistant",
+                                        "Assistant on the Google Home"
                                     ]
                                 },
-                                "title": "Ancient Egyptian religion",
-                                "description": "42 gods who ruled on the fate of the dead in the afterworld. Throughout the under…",
+                                "title": "Google Home",
+                                "description": "Google Home is a voice-activated speaker powered by\n the Google Assistant.",
                                 "image": {
-                                    "url": "http://example.com/egypt",
-                                    "accessibilityText": "Egypt"
+                                    "url": "https://lh3.googleusercontent.com/Nu3a6F80WfixUqf_ec_vgXy_c0-0r4VLJRXjVFF_X_CIilEu8B9fT35qyTEj_PEsKw",
+                                    "accessibilityText": "Google Home"
                                 }
                             },
                             {
                                 "optionInfo": {
-                                    "key": "RECIPES",
+                                    "key": "googlePixel",
                                     "synonyms": [
-                                        "recipes",
-                                        "recipe",
-                                        "42 recipes"
+                                        "Google Pixel XL",
+                                        "Pixel",
+                                        "Pixel XL"
                                     ]
                                 },
-                                "title": "42 recipes with 42 ingredients",
-                                "description": "Here's a beautifully simple recipe that's full of flavor! All you need is some ginger and…",
+                                "title": "Google Pixel",
+                                "description": "Pixel. Phone by Google.",
                                 "image": {
-                                    "url": "http://example.com/recipe",
-                                    "accessibilityText": "Recipe"
+                                    "url": "https://storage.googleapis.com/madebygoog/v1/Pixel/Pixel_ColorPicker/Pixel_Device_Angled_Black-720w.png",
+                                    "accessibilityText": "Google Pixel"
+                                }
+                            },
+                            {
+                                "optionInfo": {
+                                    "key": "googleAllo",
+                                    "synonyms": [
+                                        "Allo"
+                                    ]
+                                },
+                                "title": "Google Allo",
+                                "description": "Introducing Google Allo, a smart messaging appthat helps you say more and do more.",
+                                "image": {
+                                    "url": "https://allo.google.com/images/allo-logo.png",
+                                    "accessibilityText": "Google Allo Logo"
                                 }
                             }
                         ]
