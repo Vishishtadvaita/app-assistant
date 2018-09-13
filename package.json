@@ -1,0 +1,14 @@
+{
+    "name": "attendace-tracker-sample",
+    "version": "1.0.0",
+    "description": "attendance tarcker  sample",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "Storytellerr",
+    "dependencies": {
+        "body-parser": "^1.15.0",
+        "express": "^4.13.4"
+    }
+}
