@@ -26,10 +26,14 @@ restService.post("/attendance", function(req, res) {
         (speech = userId + password) :
         "Seems like some problem. Speak again.";
     return res.json({
-        fulfillmentText: speech,
-        displayText: speech,
-        source: "attendace-tracker-sample"
+        fulfillmentMessages: [{
+            "text": {
+                "text": [(userId + password)]
+            }
+        }]
     });
+
+
 });
 
 
