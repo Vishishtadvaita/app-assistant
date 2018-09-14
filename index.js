@@ -80,17 +80,33 @@ restService.post("/attendance", function(req, res) {
 
             rp(optionsForCallTwo)
                 .then(bodyTwo => {
-                    data = JSON.parse(bodyTwo).AttendanceDetails;
-                    var speech = '';
+                    var data = JSON.parse(bodyTwo).AttendanceDetails;
+                    var speechLast = '';
                     for (var i = 0; i < data.length; i++) {
                         var Course_Name = data[i].Course_Name;
                         var Total_Class = data[i].Total_Class;
                         var Absent = data[i].Absent;
                         var Percentage = data[i].Percentage;
 
-                        var temp = "[" + Course_Name + "-" + Percentage + "% (" + Absent + '/' + Total_Class + ")" + "],"
-                        speech = speech + temp;
+                        var temp = "[" + Course_Name + "->" + Percentage + "% (" + Absent + '/' + Total_Class + ")" + "],"
+                        speechLast = speechLast + temp;
                     }
+                    return res.json({
+                        payload: {
+                            google: {
+                                expectUserResponse: false,
+                                richResponse: {
+                                    items: [{
+                                        simpleResponse: {
+                                            textToSpeech: speechLast,
+                                        }
+                                    }]
+                                },
+                                userStorage: "{\"data\":{}}"
+                            }
+                        }
+                    });
+
                     // console.log(speech);
                 }).catch(err => {
                     console.log(err);
@@ -102,40 +118,6 @@ restService.post("/attendance", function(req, res) {
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return res.json({
-        payload: {
-            google: {
-                expectUserResponse: false,
-                richResponse: {
-                    items: [{
-                        simpleResponse: {
-                            textToSpeech: speech,
-                        }
-                    }]
-                },
-                userStorage: "{\"data\":{}}"
-            }
-        }
-    });
 
 
 });
