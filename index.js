@@ -15,8 +15,8 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/attendance", function(req, res) {
-    var userId;
-    var password;
+    var userId = req.body.queryResult.parameters.username
+    var password = req.body.queryResult.parameters.password
     var speech =
         req.body.queryResult &&
         req.body.queryResult.parameters &&
@@ -26,6 +26,7 @@ restService.post("/attendance", function(req, res) {
         (password = req.body.queryResult.parameters.password) &&
         (speech = userId + password) :
         "Seems like some problem. Speak again.";
+    console.log(userId);
 
 
 
@@ -43,8 +44,8 @@ restService.post("/attendance", function(req, res) {
     }
 
     optionsForCallOne.form = {
-        username: '15SCSE101417-adminlogin',
-        password: 'Shivam1997!',
+        username: userId + '-adminlogin',
+        password: password,
         userType: 'mobile',
         captcha: 'mobile'
     }
@@ -54,6 +55,7 @@ restService.post("/attendance", function(req, res) {
         .then(body => {
             var tokenFromWeb = JSON.parse(body).UserInfo.Token;
             var idForTwo = JSON.parse(body).UserInfo.userId;
+            console.log(tokenFromWeb);
 
             let optionsForCallTwo = {
                 method: 'POST',
@@ -68,14 +70,14 @@ restService.post("/attendance", function(req, res) {
                     'UaType': '5',
                     'token': tokenFromWeb,
                     'courseId': '0',
-                    'registrationNo': '15SCSE101417',
+                    'registrationNo': 'userId',
                     'id': idForTwo,
                     'processId': '2'
                 }
             }
 
             optionsForCallTwo.form = {
-                'id': '15SCSE101417'
+                'id': userId
             }
 
             rp(optionsForCallTwo)
@@ -109,12 +111,43 @@ restService.post("/attendance", function(req, res) {
 
                     // console.log(speech);
                 }).catch(err => {
-                    console.log(err);
+                    // console.log(err);
+                    console.log('error at second')
+                    return res.json({
+                        payload: {
+                            google: {
+                                expectUserResponse: false,
+                                richResponse: {
+                                    items: [{
+                                        simpleResponse: {
+                                            textToSpeech: "no data available",
+                                        }
+                                    }]
+                                },
+                                userStorage: "{\"data\":{}}"
+                            }
+                        }
+                    });
                 });
 
 
         }).catch(err => {
-            console.log(err);
+            console.log('error at first');
+            return res.json({
+                payload: {
+                    google: {
+                        expectUserResponse: false,
+                        richResponse: {
+                            items: [{
+                                simpleResponse: {
+                                    textToSpeech: "wrong usename/password",
+                                }
+                            }]
+                        },
+                        userStorage: "{\"data\":{}}"
+                    }
+                }
+            });
         });
 
 
