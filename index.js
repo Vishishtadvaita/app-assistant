@@ -26,10 +26,22 @@ restService.post("/attendance", function(req, res) {
         (speech = userId + password) :
         "Seems like some problem. Speak again.";
     return res.json({
-        fulfillmentText: speech,
-        displayText: speech,
-        source: "attendace-tracker-sample"
+        payload: {
+            google: {
+                expectUserResponse: false,
+                richResponse: {
+                    items: [{
+                        simpleResponse: {
+                            textToSpeech: "Alright, your silly name is red 25! I \n **hdh** hope you like it. See you next time."
+                        }
+                    }]
+                },
+                userStorage: "{\"data\":{}}"
+            }
+        }
     });
+
+
 });
 
 
