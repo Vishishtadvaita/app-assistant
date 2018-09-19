@@ -33,6 +33,7 @@ restService.post("/attendance", function(req, res) {
     let optionsForCallOne = {
         method: 'POST',
         "rejectUnauthorized": false,
+        timeout: 3000,
         uri: 'https://gu.mastersofterp.in/rfcampusgu/j_spring_security_check',
         headers: {
             'Connection': 'keep-alive',
