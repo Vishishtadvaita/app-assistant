@@ -26,6 +26,7 @@ restService.post("/attendance", function(req, res) {
         (password = req.body.queryResult.parameters.password) &&
         (speech = userId + password) :
         "Seems like some problem. Speak again.";
+    console.log("startiing");
     console.log(userId);
     console.log(password);
 
@@ -85,7 +86,7 @@ restService.post("/attendance", function(req, res) {
             rp(optionsForCallTwo)
                 .then(bodyTwo => {
                     var data = JSON.parse(bodyTwo).AttendanceDetails;
-                    var speechLast = '';
+                    var speechLast = 'Your current Attendace in different subjects is-->';
                     for (var i = 0; i < data.length; i++) {
                         var Course_Name = data[i].Course_Name;
                         var Total_Class = data[i].Total_Class;
