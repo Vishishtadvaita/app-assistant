@@ -27,6 +27,7 @@ restService.post("/attendance", function(req, res) {
         (speech = userId + password) :
         "Seems like some problem. Speak again.";
     console.log(userId);
+    console.log(password);
 
 
 
@@ -94,6 +95,7 @@ restService.post("/attendance", function(req, res) {
                         var temp = "[" + Course_Name + "->" + Percentage + "% (" + Absent + '/' + Total_Class + ")" + "],"
                         speechLast = speechLast + temp;
                     }
+                    console.log("finish sucess");
                     return res.json({
                         payload: {
                             google: {
